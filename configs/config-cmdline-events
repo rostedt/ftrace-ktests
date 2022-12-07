@@ -1,0 +1,4 @@
+CONFIG_CMDLINE="trace_event=kmem:kfree,sched,irq_handler_entry"
+CONFIG_CMDLINE_OVERRIDE=n
+CONFIG_CMDLINE_BOOL=y
+
