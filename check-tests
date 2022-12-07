@@ -1,0 +1,26 @@
+#!/bin/bash
+if [ $# -lt 2 ]; then
+	start="HEAD"
+else
+	start=$1
+	shift
+fi
+args=$#
+
+head=`git rev-list --max-count=1 $start`
+
+if [ $args -eq 0 ]; then
+	echo usage: check-tests [start] machine
+	exit 1
+fi
+
+machine=$1
+
+git tag | grep "${machine}-tested-" | while read a ; do
+	match=`git rev-list --max-count=1 $a`
+	if [ "$head" == "$match" ]; then
+		echo "Already tested via $a"
+		exit 1
+	fi
+done
+exit $?
